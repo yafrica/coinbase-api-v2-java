@@ -18,7 +18,7 @@ public abstract class AbstractCoinbaseService {
     /**
      * Do call to Coinbase API
      */
-    public <T> T doQuery(CoinbaseAuthenticationBearer auth, CoinbaseHttpMethod method, String path, Class<T> classz, Object payload, boolean searchData) throws CoinbaseHttpException {
+    protected <T> T doQuery(CoinbaseAuthenticationBearer auth, CoinbaseHttpMethod method, String path, Class<T> classz, Object payload, boolean searchData) throws CoinbaseHttpException {
         CoinbaseHttpConnection connection = new CoinbaseHttpConnection();
         CoinbaseHttpResponse response = connection.doQuery(auth, method, path, this.getPayload(payload));
         this.manageException(response);
@@ -28,21 +28,21 @@ public abstract class AbstractCoinbaseService {
     /**
      * Do call to Coinbase API
      */
-    public <T> T doQuery(CoinbaseAuthenticationBearer auth, CoinbaseHttpMethod method, String path, Class<T> classz) throws CoinbaseHttpException {
+    protected <T> T doQuery(CoinbaseAuthenticationBearer auth, CoinbaseHttpMethod method, String path, Class<T> classz) throws CoinbaseHttpException {
         return doQuery(auth, method, path, classz, null, true);
     }
     
     /**
      * Do call to Coinbase API
      */
-    public <T> T doQuery(CoinbaseAuthenticationBearer auth, CoinbaseHttpMethod method, String path, Class<T> classz, Object payload) throws CoinbaseHttpException {
+    protected <T> T doQuery(CoinbaseAuthenticationBearer auth, CoinbaseHttpMethod method, String path, Class<T> classz, Object payload) throws CoinbaseHttpException {
         return doQuery(auth, method, path, classz, payload, true);
     }
     
     /**
      * Do call to Coinbase API
      */
-    public void doQuery(CoinbaseAuthenticationBearer auth, CoinbaseHttpMethod method, String path) throws CoinbaseHttpException {
+    protected void doQuery(CoinbaseAuthenticationBearer auth, CoinbaseHttpMethod method, String path) throws CoinbaseHttpException {
         doQuery(auth, method, path, null, null, true);
     }
     

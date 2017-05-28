@@ -2,8 +2,10 @@ package coinbase.api.v2.service;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
 import java.util.Base64;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -23,11 +25,15 @@ public final class CoinbaseApiKey {
      * @throws NoSuchAlgorithmException 
      * @throws InvalidKeyException 
      */
-    public static CoinbaseApiKey build(String apiKey, String method, String requestPath, String requestBody) throws InvalidKeyException, NoSuchAlgorithmException {
+    public static CoinbaseApiKey build(String apiKey, String apiSecret, String method, String requestPath, String requestBody) throws InvalidKeyException, NoSuchAlgorithmException {
         CoinbaseApiKey coinbaseApiKey = new CoinbaseApiKey();
         coinbaseApiKey.accessKey = apiKey;
-        coinbaseApiKey.accessTimestamp = Long.toString(new Date().getTime()/1000);
-        coinbaseApiKey.accessSign = encodeSign(apiKey, coinbaseApiKey.accessTimestamp + method.toUpperCase() + ((requestBody==null) ? "" : requestBody));
+        ;
+        
+        coinbaseApiKey.accessTimestamp = Long.toString(Calendar.getInstance(TimeZone.getTimeZone("GMT")).getTime().getTime()/1000);
+        String sign = coinbaseApiKey.accessTimestamp + method.toUpperCase() + requestPath + ((requestBody==null) ? "" : requestBody);
+        System.out.println("sign : " + sign);
+        coinbaseApiKey.accessSign = encodeSign(apiSecret, sign);
         return coinbaseApiKey;
     }
     

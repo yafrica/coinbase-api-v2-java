@@ -12,7 +12,7 @@ import coinbase.api.v2.service.auth.CoinbaseAuthenticationBearer;
 
 public class CoinbaseHttpConnection {
 
-    private final static String COINBASE_V2_ENDPOINT = "https://api.coinbase.com/v2/";
+    private final static String COINBASE_V2_ENDPOINT = "https://api.coinbase.com/v2";
 
     public CoinbaseHttpResponse doQuery(CoinbaseAuthenticationBearer auth, CoinbaseHttpMethod method, String path, String payload) throws CoinbaseHttpException {
         HttpURLConnection con;
@@ -32,9 +32,11 @@ public class CoinbaseHttpConnection {
             con.setRequestMethod(method);
             con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
             if (auth != null) {
-            	auth.setConnectionHeaders(con, url, payload);
+            	auth.setConnectionHeaders(con, obj.getPath(), payload);
             }
             con.setRequestProperty("Content-Type", "application/json");
+            System.out.println("Connection : " + con);
+            System.out.println("Payload : " + payload);
             this.writePayload(con, payload);
         } catch (IOException | CoinbaseHttpException e) {
             throw new CoinbaseHttpException("Unable to create connection", e);
