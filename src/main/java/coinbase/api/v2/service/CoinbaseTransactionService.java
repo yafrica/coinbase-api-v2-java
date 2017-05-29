@@ -8,10 +8,15 @@ import coinbase.api.v2.bean.response.ListCoinbaseTransaction;
 import coinbase.api.v2.exception.CoinbaseHttpException;
 import coinbase.api.v2.http.CoinbaseHttpMethod;
 import coinbase.api.v2.service.auth.CoinbaseAuthenticationBearer;
+import coinbase.api.v2.service.auth.ICoinbaseTimestampProvider;
 
 public class CoinbaseTransactionService extends AbstractCoinbaseService {
 	
-	public ListCoinbaseTransaction list(CoinbaseAuthenticationBearer auth, String accountId) throws CoinbaseHttpException {
+	public CoinbaseTransactionService(ICoinbaseTimestampProvider timeService) {
+        super(timeService);
+    }
+
+    public ListCoinbaseTransaction list(CoinbaseAuthenticationBearer auth, String accountId) throws CoinbaseHttpException {
         return doQuery(auth, CoinbaseHttpMethod.GET, "/accounts/" + accountId + "/transactions", ListCoinbaseTransaction.class, false);
     }
 	

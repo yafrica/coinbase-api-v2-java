@@ -9,18 +9,28 @@ import coinbase.api.v2.http.CoinbaseHttpConnection;
 import coinbase.api.v2.http.CoinbaseHttpMethod;
 import coinbase.api.v2.http.CoinbaseHttpResponse;
 import coinbase.api.v2.service.auth.CoinbaseAuthenticationBearer;
+import coinbase.api.v2.service.auth.ICoinbaseTimestampProvider;
 import coinbase.api.v2.utils.CoinbaseJsonObjectMapper;
 
 public abstract class AbstractCoinbaseService {
 
     private CoinbaseJsonObjectMapper mapper = new CoinbaseJsonObjectMapper();
+    private ICoinbaseTimestampProvider timestampProvider;
+    
+    public AbstractCoinbaseService(ICoinbaseTimestampProvider timestampProvider) {
+        this.timestampProvider = timestampProvider;
+    }
     
     /**
      * Do call to Coinbase API
      */
     protected <T> T doQuery(CoinbaseAuthenticationBearer auth, CoinbaseHttpMethod method, String path, Class<T> classz, Object payload, boolean searchData) throws CoinbaseHttpException {
+        Integer timestamp = null;
+        if (this.timestampProvider != null) {
+            timestamp = Integer.valueOf(timestampProvider.getTimestamp());
+        }
         CoinbaseHttpConnection connection = new CoinbaseHttpConnection();
-        CoinbaseHttpResponse response = connection.doQuery(auth, method, path, this.getPayload(payload));
+        CoinbaseHttpResponse response = connection.doQuery(auth, timestamp, method, path, this.getPayload(payload));
         this.manageException(response);
         return this.getResponseObject(response.getResponse(), searchData, classz);
     }
@@ -82,5 +92,5 @@ public abstract class AbstractCoinbaseService {
     	}
     	return null;
     }
-
+    
 }

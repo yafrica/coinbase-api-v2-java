@@ -2,13 +2,8 @@ package coinbase.api.v2.service;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.time.Instant;
-import java.util.Base64;
-import java.util.Calendar;
-import java.util.TimeZone;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
+import org.apache.commons.codec.digest.HmacUtils;
 
 public final class CoinbaseApiKey {
     
@@ -25,23 +20,17 @@ public final class CoinbaseApiKey {
      * @throws NoSuchAlgorithmException 
      * @throws InvalidKeyException 
      */
-    public static CoinbaseApiKey build(String apiKey, String apiSecret, String method, String requestPath, String requestBody) throws InvalidKeyException, NoSuchAlgorithmException {
+    public static CoinbaseApiKey build(String apiKey, String apiSecret, String timestamp, String method, String requestPath, String requestBody) throws InvalidKeyException, NoSuchAlgorithmException {
         CoinbaseApiKey coinbaseApiKey = new CoinbaseApiKey();
         coinbaseApiKey.accessKey = apiKey;
-        ;
-        
-        coinbaseApiKey.accessTimestamp = Long.toString(Calendar.getInstance(TimeZone.getTimeZone("GMT")).getTime().getTime()/1000);
+        coinbaseApiKey.accessTimestamp = timestamp;
         String sign = coinbaseApiKey.accessTimestamp + method.toUpperCase() + requestPath + ((requestBody==null) ? "" : requestBody);
-        System.out.println("sign : " + sign);
         coinbaseApiKey.accessSign = encodeSign(apiSecret, sign);
         return coinbaseApiKey;
     }
     
-    private static String encodeSign(String secret, String message) throws NoSuchAlgorithmException, InvalidKeyException {
-        Mac sha_256_HMAC = Mac.getInstance("HmacSHA256");
-        SecretKeySpec secret_key = new SecretKeySpec(secret.getBytes(), "HmacSHA256");
-        sha_256_HMAC.init(secret_key);
-        return Base64.getEncoder().encodeToString(sha_256_HMAC.doFinal(message.getBytes()));
+    protected static String encodeSign(String secret, String sign) throws NoSuchAlgorithmException, InvalidKeyException {
+        return HmacUtils.hmacSha256Hex(secret, sign);
     }
 
     public String getAccessKey() {

@@ -7,7 +7,11 @@ import coinbase.api.v2.service.AbstractCoinbaseService;
 
 public class CoinbaseExchangeRatesService extends AbstractCoinbaseService {
 	
-	public CoinbaseExchangeRates getExchangeRates(String currency) throws CoinbaseHttpException {
+	public CoinbaseExchangeRatesService() {
+        super(null);
+    }
+
+    public CoinbaseExchangeRates getExchangeRates(String currency) throws CoinbaseHttpException {
         return doQuery(null, CoinbaseHttpMethod.GET, "/exchange-rates?currency=" + currency, CoinbaseExchangeRates.class);
     }
 

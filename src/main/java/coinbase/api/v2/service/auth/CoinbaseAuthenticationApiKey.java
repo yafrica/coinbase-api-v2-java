@@ -9,21 +9,6 @@ import coinbase.api.v2.service.CoinbaseApiKey;
 
 public class CoinbaseAuthenticationApiKey implements CoinbaseAuthenticationBearer {
     
-    /**
-     * The api key as a string
-     */
-    private final static String CB_ACCESS_KEY = "CB-ACCESS-KEY";
-    
-    /**
-     * The user generated message signature
-     */
-    private final static String CB_ACCESS_SIGN = "CB-ACCESS-SIGN";
-    
-    /**
-     * A timestamp for your request
-     */
-    private final static String CB_ACCESS_TIMESTAMP = "CB-ACCESS-TIMESTAMP";
-
     private String apiKey;
     private String apiSecret;
     
@@ -52,10 +37,10 @@ public class CoinbaseAuthenticationApiKey implements CoinbaseAuthenticationBeare
 	}
 
 	@Override
-    public void setConnectionHeaders(HttpURLConnection con, String path, String body) throws CoinbaseHttpException {
+    public void setConnectionHeaders(HttpURLConnection con, String timestamp, String path, String body) throws CoinbaseHttpException {
         CoinbaseApiKey cbApi;
         try {
-            cbApi = CoinbaseApiKey.build(apiKey, apiSecret, con.getRequestMethod(), path, body);
+            cbApi = CoinbaseApiKey.build(apiKey, apiSecret, timestamp, con.getRequestMethod(), path, body);
         } catch (InvalidKeyException | NoSuchAlgorithmException e) {
             throw new CoinbaseHttpException("Could not generate API Key", e);
         }

@@ -7,7 +7,11 @@ import coinbase.api.v2.service.AbstractCoinbaseService;
 
 public class CoinbasePricesService extends AbstractCoinbaseService {
 	
-	public CoinbaseAmount getBuyPrice(String currencyFrom, String currencyTo) throws CoinbaseHttpException {
+	public CoinbasePricesService() {
+        super(null);
+    }
+
+    public CoinbaseAmount getBuyPrice(String currencyFrom, String currencyTo) throws CoinbaseHttpException {
         return doQuery(null, CoinbaseHttpMethod.GET, "/prices/" + currencyFrom + "-" + currencyTo + "/buy", CoinbaseAmount.class);
     }
 	
