@@ -5,7 +5,10 @@ import coinbase.api.v2.service.CoinbaseAddressService;
 import coinbase.api.v2.service.CoinbaseAuthenticationService;
 import coinbase.api.v2.service.CoinbaseBuyService;
 import coinbase.api.v2.service.CoinbaseNotificationService;
+import coinbase.api.v2.service.CoinbasePaymentMethodService;
+import coinbase.api.v2.service.CoinbaseSellService;
 import coinbase.api.v2.service.CoinbaseTransactionService;
+import coinbase.api.v2.service.CoinbaseUserService;
 import coinbase.api.v2.service.auth.ICoinbaseTimestampProvider;
 import coinbase.api.v2.service.data.CoinbaseCurrencyService;
 import coinbase.api.v2.service.data.CoinbaseExchangeRatesService;
@@ -19,12 +22,15 @@ public class CoinbaseApi {
     private CoinbaseAddressService addressService;
     private CoinbaseAuthenticationService authenticationService;
     private CoinbaseBuyService buyService;
+    private CoinbaseSellService sellService;
     private CoinbaseNotificationService notificationService;
     private CoinbaseTransactionService transactionService;
+    private CoinbaseUserService userService;
     private CoinbaseCurrencyService currencyService;
     private CoinbaseExchangeRatesService exchangeRatesService;
     private CoinbasePricesService pricesService;
     private CoinbaseTimeService timeService;
+    private CoinbasePaymentMethodService paymentMethodService;
     
     public CoinbaseApi() {
         this.initServices(null);
@@ -38,13 +44,18 @@ public class CoinbaseApi {
         this.timeService = new CoinbaseTimeService();
         if (null == provider) {
             this.timestampProvider = this.timeService;
+        } else {
+        	this.timestampProvider = provider;
         }
         this.accountService = new CoinbaseAccountService(this.timestampProvider);
         this.addressService = new CoinbaseAddressService(this.timestampProvider);
         this.authenticationService = new CoinbaseAuthenticationService(this.timestampProvider);
         this.buyService = new CoinbaseBuyService(this.timestampProvider);
         this.notificationService = new CoinbaseNotificationService(this.timestampProvider);
+        this.userService = new CoinbaseUserService(this.timestampProvider);
         this.transactionService = new CoinbaseTransactionService(this.timestampProvider);
+        this.paymentMethodService = new CoinbasePaymentMethodService(this.timestampProvider);
+        this.sellService = new CoinbaseSellService(this.timestampProvider);
         this.currencyService = new CoinbaseCurrencyService();
         this.exchangeRatesService = new CoinbaseExchangeRatesService();
         this.pricesService = new CoinbasePricesService();
@@ -89,5 +100,17 @@ public class CoinbaseApi {
     public CoinbaseTimeService getTimeService() {
         return timeService;
     }
-
+    
+    public CoinbaseUserService getUserService() {
+		return userService;
+	}
+    
+    public CoinbasePaymentMethodService getPaymentMethodService() {
+		return paymentMethodService;
+	}
+    
+    public CoinbaseSellService getSellService() {
+		return sellService;
+	}
+    
 }

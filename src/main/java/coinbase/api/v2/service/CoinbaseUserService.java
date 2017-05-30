@@ -19,7 +19,7 @@ public class CoinbaseUserService extends AbstractCoinbaseService {
     }
     
     public CoinbaseAuthInfo showAuthorizationInformation(CoinbaseAuthenticationBearer auth) throws CoinbaseHttpException {
-        return doQuery(auth, CoinbaseHttpMethod.GET, "/user", CoinbaseAuthInfo.class);
+        return doQuery(auth, CoinbaseHttpMethod.GET, "/user/auth", CoinbaseAuthInfo.class);
     }
     
     public CoinbaseUser show(CoinbaseAuthenticationBearer auth, String userId) throws CoinbaseHttpException {

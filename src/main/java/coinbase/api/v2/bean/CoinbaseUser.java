@@ -30,6 +30,8 @@ public class CoinbaseUser extends AbstractCoinbaseTimedResource {
     @JsonProperty("bitcoin_unit")
     private String bitcoinUnit;
     
+    private String state;
+    
     private CoinbaseCountry country;
 
     public String getName() {
@@ -97,6 +99,12 @@ public class CoinbaseUser extends AbstractCoinbaseTimedResource {
 	}
 	public void setCountry(CoinbaseCountry country) {
 		this.country = country;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
     
 }
