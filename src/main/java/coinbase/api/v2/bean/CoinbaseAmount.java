@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public class CoinbaseAmount {
     
+    private String base;
     private BigDecimal amount;
     private String currency;
     
@@ -18,6 +19,12 @@ public class CoinbaseAmount {
     }
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+    public String getBase() {
+        return base;
+    }
+    public void setBase(String base) {
+        this.base = base;
     }
     
 }
