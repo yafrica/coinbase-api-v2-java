@@ -41,7 +41,7 @@ CoinbaseAuthInfo informations = userService.showAuthorizationInformation(auth);
 
 ## Current limitations
 	
-- The remote call by API Key or OAuth is not tested yet
+- The remote call by OAuth is not tested yet
 - All the features from API are not yet implemented (please ask if you want one missing quickly)
 
 

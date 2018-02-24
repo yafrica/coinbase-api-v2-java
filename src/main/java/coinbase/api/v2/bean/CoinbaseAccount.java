@@ -7,7 +7,7 @@ public class CoinbaseAccount extends AbstractCoinbaseTimedResource {
     private String name;
     private Boolean primary;
     private String type;
-    private String currency;
+    private CoinbaseCurrency currency;
     private CoinbaseAmount balance;
     
     @JsonProperty("native_balance")
@@ -33,10 +33,10 @@ public class CoinbaseAccount extends AbstractCoinbaseTimedResource {
     public void setType(String type) {
         this.type = type;
     }
-    public String getCurrency() {
+    public CoinbaseCurrency getCurrency() {
         return currency;
     }
-    public void setCurrency(String currency) {
+    public void setCurrency(CoinbaseCurrency currency) {
         this.currency = currency;
     }
     public CoinbaseAmount getBalance() {

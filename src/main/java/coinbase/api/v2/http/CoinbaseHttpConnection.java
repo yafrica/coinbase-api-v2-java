@@ -21,7 +21,10 @@ public class CoinbaseHttpConnection {
         }
         HttpURLConnection con;
         con = this.getConnection(auth, timestamp, COINBASE_V2_ENDPOINT + path, method.getCode(), payload);
-        return this.getResponse(con);
+        System.out.println("Connection : " + con);
+        CoinbaseHttpResponse response = this.getResponse(con);
+        System.out.println(response.getResponse());
+        return response;
     }
 
     protected HttpURLConnection getConnection(CoinbaseAuthenticationBearer auth, Integer timestamp, String url, String method, String payload) throws CoinbaseHttpException {

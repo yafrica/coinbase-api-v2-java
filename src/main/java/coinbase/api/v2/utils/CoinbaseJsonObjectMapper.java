@@ -5,6 +5,7 @@ import java.io.InputStream;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,6 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class CoinbaseJsonObjectMapper {
     
     private static ObjectMapper COINBASE_MAPPER = new ObjectMapper();
+    static {
+    	COINBASE_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
     
     public <T> T fromString(String src, Class<T> classz) throws JsonParseException, JsonMappingException, IOException {
         return COINBASE_MAPPER.readValue(src, classz);
