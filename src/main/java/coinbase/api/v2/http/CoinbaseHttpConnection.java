@@ -14,7 +14,8 @@ import coinbase.api.v2.service.auth.CoinbaseAuthenticationBearer;
 public class CoinbaseHttpConnection {
 
     private final static String COINBASE_V2_ENDPOINT = "https://api.coinbase.com/v2/";
-
+    public final static String COINBASE_API_VERSION = "2017-05-24";
+    
     public CoinbaseHttpResponse doQuery(CoinbaseAuthenticationBearer auth, Integer timestamp, CoinbaseHttpMethod method, String path, String payload) throws CoinbaseHttpException {
         if (path.startsWith("/")) {
             path = path.substring(1);
@@ -38,6 +39,7 @@ public class CoinbaseHttpConnection {
                 auth.setConnectionHeaders(con, timestamp.toString(), obj.getPath(), payload);
             }
             con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("CB-VERSION", COINBASE_API_VERSION);
             this.writePayload(con, payload);
         } catch (IOException e) {
             throw new CoinbaseHttpException("Unable to create connection", e);

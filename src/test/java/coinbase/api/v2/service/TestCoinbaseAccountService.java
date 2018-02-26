@@ -8,7 +8,7 @@ import coinbase.api.v2.exception.CoinbaseHttpException;
 import coinbase.api.v2.service.auth.CoinbaseAuthenticationApiKey;
 import coinbase.api.v2.service.auth.CoinbaseAuthenticationBearer;
 import coinbase.api.v2.service.auth.ICoinbaseTimestampProvider;
-import coinbase.api.v2.service.auth.JvmBasedTimestampProvider;
+import coinbase.api.v2.service.data.CoinbaseTimeService;
 
 public class TestCoinbaseAccountService {
     
@@ -16,13 +16,14 @@ public class TestCoinbaseAccountService {
     private ICoinbaseTimestampProvider timeService;
     private CoinbaseAuthenticationBearer authenticationBearer;
     
-    private String apiKey = "";
-    private String apiSecret = "";
+    private String apiKey = System.getProperty("coinbase.apiKey");
+    private String apiSecret = System.getProperty("coinbase.apiSecret");
     
     @Before
     public void setUp() {
-        this.timeService = new JvmBasedTimestampProvider();
+        this.timeService = new CoinbaseTimeService();
         this.accountService = new CoinbaseAccountService(timeService);
+        System.out.println("Using apiKey/secret : " + this.apiKey + "/" + this.apiSecret);
         this.authenticationBearer = new CoinbaseAuthenticationApiKey(apiKey, apiSecret);
     }
     
