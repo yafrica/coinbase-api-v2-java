@@ -15,7 +15,7 @@ public class CoinbaseSellService extends AbstractCoinbaseService {
 	}
 	
 	public ListCoinbaseSellResource list(CoinbaseAuthenticationBearer auth, String accountId) throws CoinbaseHttpException {
-        return doQuery(auth, CoinbaseHttpMethod.GET, "/accounts/" + accountId + "/sells", ListCoinbaseSellResource.class, false);
+        return doQuery(auth, CoinbaseHttpMethod.GET, "/accounts/" + accountId + "/sells", ListCoinbaseSellResource.class, null, false);
     }
 	
 	public CoinbaseSellResource show(CoinbaseAuthenticationBearer auth, String accountId, String sellId) throws CoinbaseHttpException {

@@ -15,7 +15,7 @@ public class CoinbaseAddressService extends AbstractCoinbaseService {
     }
 
     public ListCoinbaseAddress list(CoinbaseAuthenticationBearer auth, String accountId) throws CoinbaseHttpException {
-        return doQuery(auth, CoinbaseHttpMethod.GET, "/accounts/" + accountId + "/addresses", ListCoinbaseAddress.class, false);
+        return doQuery(auth, CoinbaseHttpMethod.GET, "/accounts/" + accountId + "/addresses", ListCoinbaseAddress.class, null, false);
     }
 	
 	public CoinbaseAddress show(CoinbaseAuthenticationBearer auth, String accountId, String addressId) throws CoinbaseHttpException {
@@ -23,7 +23,7 @@ public class CoinbaseAddressService extends AbstractCoinbaseService {
     }
 	
 	public ListCoinbaseTransaction listTransactions(CoinbaseAuthenticationBearer auth, String accountId, String addressId) throws CoinbaseHttpException {
-        return doQuery(auth, CoinbaseHttpMethod.GET, "/accounts/" + accountId + "/addresses" + addressId + "/transactions", ListCoinbaseTransaction.class, false);
+        return doQuery(auth, CoinbaseHttpMethod.GET, "/accounts/" + accountId + "/addresses" + addressId + "/transactions", ListCoinbaseTransaction.class, null, false);
     }
 	
 	public CoinbaseAddress create(CoinbaseAuthenticationBearer auth, String accountId) throws CoinbaseHttpException {

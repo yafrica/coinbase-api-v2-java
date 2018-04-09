@@ -15,7 +15,7 @@ public class CoinbaseBuyService extends AbstractCoinbaseService {
     }
 
     public ListCoinbaseBuyResource list(CoinbaseAuthenticationBearer auth, String accountId) throws CoinbaseHttpException {
-        return doQuery(auth, CoinbaseHttpMethod.GET, "/accounts/" + accountId + "/buys", ListCoinbaseBuyResource.class, false);
+        return doQuery(auth, CoinbaseHttpMethod.GET, "/accounts/" + accountId + "/buys", ListCoinbaseBuyResource.class, null, false);
     }
 	
 	public CoinbaseBuyResource show(CoinbaseAuthenticationBearer auth, String accountId, String buyId) throws CoinbaseHttpException {

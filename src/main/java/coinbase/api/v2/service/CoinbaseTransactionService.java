@@ -17,7 +17,7 @@ public class CoinbaseTransactionService extends AbstractCoinbaseService {
     }
 
     public ListCoinbaseTransaction list(CoinbaseAuthenticationBearer auth, String accountId) throws CoinbaseHttpException {
-        return doQuery(auth, CoinbaseHttpMethod.GET, "/accounts/" + accountId + "/transactions", ListCoinbaseTransaction.class, false);
+        return doQuery(auth, CoinbaseHttpMethod.GET, "/accounts/" + accountId + "/transactions", ListCoinbaseTransaction.class, null, false);
     }
 	
 	public CoinbaseTransaction show(CoinbaseAuthenticationBearer auth, String accountId, String transactionId) throws CoinbaseHttpException {

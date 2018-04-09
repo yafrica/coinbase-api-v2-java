@@ -14,7 +14,7 @@ public class CoinbaseNotificationService extends AbstractCoinbaseService {
     }
 
     public ListCoinbaseNotification list(CoinbaseAuthenticationBearer auth) throws CoinbaseHttpException {
-        return doQuery(auth, CoinbaseHttpMethod.GET, "/notifications", ListCoinbaseNotification.class, false);
+        return doQuery(auth, CoinbaseHttpMethod.GET, "/notifications", ListCoinbaseNotification.class, null, false);
     }
     
     public CoinbaseNotification show(CoinbaseAuthenticationBearer auth, String notificationId) throws CoinbaseHttpException {

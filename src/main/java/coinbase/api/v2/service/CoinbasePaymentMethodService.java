@@ -14,7 +14,7 @@ public class CoinbasePaymentMethodService extends AbstractCoinbaseService {
 	}
 	
 	public ListCoinbasePaymentMethod list(CoinbaseAuthenticationBearer auth) throws CoinbaseHttpException {
-        return doQuery(auth, CoinbaseHttpMethod.GET, "/payment-methods", ListCoinbasePaymentMethod.class, false);
+        return doQuery(auth, CoinbaseHttpMethod.GET, "/payment-methods", ListCoinbasePaymentMethod.class, null, false);
     }
 	
 	public CoinbasePaymentMethod show(CoinbaseAuthenticationBearer auth, String paymentMethodId) throws CoinbaseHttpException {
